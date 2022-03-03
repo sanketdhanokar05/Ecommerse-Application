@@ -1,0 +1,15 @@
+server.port = 8084
+
+spring.datasource.url = jdbc:postgresql://localhost:5432/mydb
+spring.datasource.username = harsha
+spring.datasource.password = harsha123
+spring.jpa.hibernate.ddl-auto = update
+
+server.servlet.context-path=/orderservice
+
+spring.application.name=ecom-order-service
+
+management.endpoints.web.exposure.include= *
+
+
+#spring.mvc.pathmatch.matching-strategy=ant-path-matcher

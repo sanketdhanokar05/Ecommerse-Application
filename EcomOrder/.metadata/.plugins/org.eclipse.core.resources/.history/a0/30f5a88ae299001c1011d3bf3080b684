@@ -1,0 +1,11 @@
+package com.abc.orderservice.service;
+
+import com.abc.orderservice.entity.Order;
+
+public interface OrderService {
+	
+	public Order saveOrder(Order order);
+	
+	public Order getOrderDetails(int orderId);
+
+}

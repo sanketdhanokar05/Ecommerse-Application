@@ -1,0 +1,27 @@
+package com.abc.orderservice.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.abc.orderservice.model.Product;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
+@Service
+public class ProductService {
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@HystrixCommand(fallbackMethod = "productServiceFallBack")
+	public Product getProductDetails(int productId) {
+		
+        String resourceUrl = "http://localhost:8082/ecom/product/get/" + productId;
+		
+		Product product = restTemplate.getForObject(resourceUrl, Product.class);
+		
+		return product;
+
+	}
+
+}

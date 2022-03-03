@@ -1,0 +1,5 @@
+package com.abc.orderservice.service;
+
+public class CustomerService {
+
+}

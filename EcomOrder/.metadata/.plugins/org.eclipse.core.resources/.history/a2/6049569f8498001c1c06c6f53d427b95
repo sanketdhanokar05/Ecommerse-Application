@@ -1,0 +1,5 @@
+package com.abc.orderservice;
+
+public class SpringFoxConfig {
+
+}

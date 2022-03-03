@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+F:\capgemini\Ecommerse\EcomCustomer\.metadata\.plugins\org.eclipse.jdt.core
+3207939784.index

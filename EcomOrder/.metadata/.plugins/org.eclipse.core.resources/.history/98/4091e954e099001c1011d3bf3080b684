@@ -1,0 +1,5 @@
+package com.abc.orderservice.model;
+
+public class Customer {
+
+}

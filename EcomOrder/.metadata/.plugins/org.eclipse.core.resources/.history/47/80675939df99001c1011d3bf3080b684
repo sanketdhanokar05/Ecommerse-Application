@@ -1,0 +1,6 @@
+package com.abc.orderservice.service;
+
+@Service
+public class ProductService {
+
+}

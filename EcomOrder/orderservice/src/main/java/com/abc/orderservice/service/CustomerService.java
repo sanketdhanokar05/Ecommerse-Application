@@ -1,0 +1,56 @@
+package com.abc.orderservice.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.abc.orderservice.model.Customer;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
+@Service
+public class CustomerService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+ @HystrixCommand(fallbackMethod = "customerServiceFallBack", commandProperties = { 
+    		 
+    		 @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+    		 ,@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+    		 @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+    		 @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")
+    		 
+    		 
+     })
+
+	public Customer getCustomerDetails(int customerId) {
+
+		String resourceUrl = "http://ecom-customer-service/ecom/customer/get/" + customerId;
+
+		Customer customer = restTemplate.getForObject(resourceUrl, Customer.class);
+
+		return customer;
+
+	}
+
+	@SuppressWarnings("unused")
+	private Customer customerServiceFallBack(int customerId) {
+		
+		Customer customer = new Customer();
+		customer.setCustomerId(customerId);
+		customer.setCustomerName("");
+		customer.setAddress("");
+		customer.setEmail("");
+		customer.setMobile("");
+
+		System.out.println("Customer Service is down!!! fallback route enabled...");
+		return customer;
+
+		/*
+		 * return
+		 * "CIRCUIT BREAKER ENABLED!!! No Response From Student Service at this moment. "
+		 * + " Service will be back shortly - " + LocalDate.now();
+		 */
+	}
+}
